@@ -4,9 +4,10 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 
+
 # Liens des fichiers sur Google Drive
-model_columns_url = "https://drive.google.com/uc?id=1hA2nmYYDhswZ9Xt-Keazp9kVOpGBdTmI"
-trained_model_url = "https://drive.google.com/uc?id=1HobHUNSjvfiOZ9QrqnCO8v4cNqqOo1rU"
+model_columns_url = "https://drive.google.com/uc?id=1_4NhiBY8A6SeMZ2_hQWKrf141KmazICT"
+trained_model_url = "https://drive.google.com/uc?id=14OVmC_v217icICSlkYlX6-pHZDkaCYtC"
 
 # Télécharger et charger model_columns.pkl
 print("Téléchargement de model_columns.pkl...")
@@ -99,7 +100,6 @@ def afficher_prediction():
             natural_gas_kbtu = st.number_input("Consommation de gaz naturel (kBtu)", min_value=0, max_value=1000000, value=50000)
             largest_property_use_type_gfa = st.number_input("Plus grande utilisation du bâtiment (GFA)", min_value=1, max_value=100000, value=10000)
             building_age = st.number_input("Âge du bâtiment", min_value=0, max_value=100, value=30)
-            ghg_emissions_intensity = st.number_input("Intensité des émissions GES", min_value=0.0, max_value=1000.0, value=200.0)
             submitted = st.form_submit_button("Prédire")
 
         if submitted:
@@ -115,7 +115,6 @@ def afficher_prediction():
                 'NaturalGas(kBtu)': natural_gas_kbtu,
                 'LargestPropertyUseTypeGFA': largest_property_use_type_gfa,
                 'BuildingAge': building_age,
-                'GHGEmissionsIntensity': ghg_emissions_intensity,
                 
             }
             input_df = pd.DataFrame(input_data, index=[0])
@@ -140,7 +139,7 @@ def afficher_prediction():
     # Prédictions multiples
     with tab2:
         st.markdown('<h2 class="section-title">📂 Prédictions multiples pour plusieurs bâtiments</h2>', unsafe_allow_html=True)
-        uploaded_file = st.file_uploader("Téléchargez un fichier Excel", type=["xlsx", "xls"])
+        uploaded_file = st.file_uploader("Téléchargez un fichier Excel", type=["xlsx", "xls","csv"])
         if uploaded_file:
             data_excel = pd.read_excel(uploaded_file, engine='openpyxl')
             st.write("📋 **Aperçu des données :**", data_excel.head())
